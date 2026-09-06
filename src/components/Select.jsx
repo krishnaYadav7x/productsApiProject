@@ -1,14 +1,12 @@
 import React from 'react'
 
-export default function Select({ options, defaultOption, setCategory }) {
+export default function Select({ options, defaultOption, setCategory ,onChange}) {
   return (
     <select
       name="select"
       id="select"
       className="cursor-pointer rounded border px-2 py-1"
-      onChange={(e)=>{
-        setCategory(e.target.value)
-      }}
+      onChange={onChange}
     >
       <option value="" hidden>
         {defaultOption}
