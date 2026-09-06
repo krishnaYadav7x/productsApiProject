@@ -18,6 +18,7 @@ export default function ProductsCard({ data, query ,category}) {
             to={`/productDetails/${product.title}`}
             key={product.id}
             className="border px-4 py-2 shadow-2xl rounded"
+            state={product}
           >
             <img src={product.thumbnail} alt={product.title} />
             <span className="text-center font-bold">{product.title}</span>

@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import { ArrowLeft } from 'lucide-react';
-import { useParams } from 'react-router'
+import { useLocation, useParams } from 'react-router'
 
 import { searchProducts } from '../api/products';
 
 export default function ProductDetailsPage() {
   const [productsData,setProductsData] = useState([])
-  console.log(productsData);
+
   const {title} = useParams()
-  console.log(title);
+  const {state} = useLocation()
+  console.log(state);
+  
   
   useEffect(()=>{
+    if(state){
+      setProductsData(state)
+      return 
+    }
      async function getData (){
       const data = await searchProducts(title)
       setProductsData(...data)
