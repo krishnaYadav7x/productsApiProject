@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router';
+import { ThemeContext } from '../contexts/ThemeContext';
 
 export default function ProductsCard({ data, query ,category}) {
+  const[isDark] = useContext(ThemeContext)
   return !data ? (
     <h1>"No products found"</h1>
   ) : (
@@ -17,7 +19,11 @@ export default function ProductsCard({ data, query ,category}) {
           <Link
             to={`/productDetails/${product.title}`}
             key={product.id}
-            className="border px-4 py-2 shadow-2xl rounded"
+            className={`rounded px-4 py-2 shadow-2xl ${
+              isDark
+                ? "border border-slate-700 bg-slate-900 text-slate-100"
+                : "border bg-white text-black"
+            }`}
             state={product}
           >
             <img src={product.thumbnail} alt={product.title} />
@@ -32,7 +38,11 @@ export default function ProductsCard({ data, query ,category}) {
               </h2>
               <button
                 onClick={(e) => e.stopPropagation()}
-                className="cursor-pointer rounded bg-gray-300 px-2 py-1"
+                className={`cursor-pointer rounded bg-gray-300 px-2 py-1 ${
+                  isDark
+                    ? "bg-violet-500 text-white hover:bg-violet-600"
+                    : "bg-gray-300 text-black hover:bg-gray-400"
+                }`}
               >
                 Add to cart
               </button>

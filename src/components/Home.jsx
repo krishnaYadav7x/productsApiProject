@@ -1,14 +1,17 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getProducts } from "../api/products";
 import ProductsControl from "./ProductsControl";
 import ProductsContainer from "./ProductsContainer";
+import { ThemeContext } from "../contexts/ThemeContext";
+
 
 export default function ProductsPage() {
   const [data, setData] = useState([]);
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("All category");
 
-
+ const[isDark] = useContext(ThemeContext)
+ 
 
   useEffect(() => {
     async function fetchData() {
@@ -20,7 +23,9 @@ export default function ProductsPage() {
   }, []);
 
   return (
-    <main>
+    <main
+      className={`pb-4 ${isDark ? "bg-slate-950 text-white" : "bg-white"} min-h-[calc(100vh-68px)]`}
+    >
       <ProductsControl
         data={data}
         setQuery={setQuery}

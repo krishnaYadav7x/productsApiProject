@@ -4,7 +4,7 @@ import Select from "./Select";
 
 export default function ProductsControl({ data, setQuery, query, setCategory }) {
   return (
-    <div className="flex flex-col gap-4 px-2">
+    <div className="flex flex-col gap-4 px-2 pt-4">
       <SearchProducts setQuery={setQuery} query={query} />
       <div className="flex justify-between gap-2 max-[369px]:flex-col">
         <Select
@@ -14,10 +14,12 @@ export default function ProductsControl({ data, setQuery, query, setCategory }) 
           onChange={(e) => {
             setCategory(e.target.value.toLowerCase());
           }}
+          id="category"
         />
         <Select
           options={["Price low to high", "Price high to low", "Ratings"]}
           defaultOption={"Sort products"}
+          id="sort"
         />
       </div>
     </div>
