@@ -1,11 +1,12 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router';
 import { ThemeContext } from '../contexts/ThemeContext';
+import CardShimmer from './CardShimmer';
 
 export default function ProductsCard({ data, query ,category}) {
   const[isDark] = useContext(ThemeContext)
-  return !data ? (
-    <h1>"No products found"</h1>
+  return data.length===0 ? (
+    <CardShimmer />
   ) : (
     data
       .filter(

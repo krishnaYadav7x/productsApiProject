@@ -7,7 +7,7 @@ export default function Select({ options, defaultOption, setCategory ,onChange,i
     <select
       name="select"
       id={id}
-      className={`cursor-pointer rounded px-2 py-1 ${
+      className={`cursor-pointer rounded px-2  py-2 ${
         isDark
           ? "border-slate-600 bg-slate-900 text-white focus:border-violet-500 focus:ring-1 focus:ring-violet-500"
           : "border-slate-400 bg-white text-black focus:border-violet-500 focus:ring-1 focus:ring-violet-500"

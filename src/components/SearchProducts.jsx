@@ -13,7 +13,7 @@ export default function SearchProducts({ setQuery,query }) {
 
   return (
     <div
-      className={`flex items-center gap-2 rounded px-2 py-1 ${
+      className={`flex items-center gap-2 rounded px-2 py-2 ${
         isDark
           ? "border-slate-600 bg-slate-900 text-white placeholder:text-slate-400 focus:border-violet-500 focus:ring-1 focus:ring-violet-500"
           : "border-slate-400 bg-white text-black focus:border-violet-500 focus:ring-1 focus:ring-violet-500"
