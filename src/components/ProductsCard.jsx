@@ -1,11 +1,26 @@
-import React, { useContext } from 'react'
-import { Link } from 'react-router';
-import { ThemeContext } from '../contexts/ThemeContext';
-import CardShimmer from './CardShimmer';
+import React, { useContext } from "react";
+import { Link } from "react-router";
+import { ThemeContext } from "../contexts/ThemeContext";
+import CardShimmer from "./CardShimmer";
+import { CartContext } from "../contexts/CartContext";
 
-export default function ProductsCard({ data, query ,category}) {
-  const[isDark] = useContext(ThemeContext)
-  return data.length===0 ? (
+export default function ProductsCard({ data, query, category }) {
+  const [isDark] = useContext(ThemeContext);
+  const [cartItem, setCartItem] = useContext(CartContext);
+
+  const addToCart = (product) => {
+    setCartItem((prev)=>{
+      const existing = prev.find((item)=>item.id===product.id)
+      if(existing){
+        return prev.map((item)=>{
+         return item.id===product.id?{...item,quantity:item.quantity+1}:item
+        })
+      }
+      return [...prev,{...product,quantity:1}]
+    })
+  };
+
+  return data.length === 0 ? (
     <CardShimmer />
   ) : (
     data
@@ -38,7 +53,11 @@ export default function ProductsCard({ data, query ,category}) {
                 }).format(product.price * 10)}{" "}
               </h2>
               <button
-                onClick={(e) => e.stopPropagation()}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  addToCart(product);
+                }}
                 className={`cursor-pointer rounded bg-gray-300 px-2 py-1 ${
                   isDark
                     ? "bg-violet-500 text-white hover:bg-violet-600"

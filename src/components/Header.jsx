@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ShoppingCart, MoonIcon, SunIcon } from "lucide-react";
 import { ThemeContext } from "../contexts/ThemeContext";
+import { Link } from "react-router";
 
 export default function Header() {
   const [isDark, setIsDark] = useContext(ThemeContext);
@@ -23,13 +24,13 @@ export default function Header() {
           ) : (
             <MoonIcon width={20} height={25} />
           )}
-          <span>{isDark?'Light':'Dark'}</span>
+          <span>{isDark ? "Light" : "Dark"}</span>
         </div>
-        <div
+        <Link to={`/cart`}
           className={`h-8 w-12 cursor-pointer rounded ${isDark ? "border border-white" : "border border-black"} px-2 py-1`}
         >
           <ShoppingCart width={20} height={20} />
-        </div>
+        </Link>
       </div>
     </header>
   );
