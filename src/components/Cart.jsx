@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { ThemeContext } from "../contexts/ThemeContext";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ShoppingCart } from "lucide-react";
 import { CartContext } from "../contexts/CartContext";
 
 const imgUrl = new URL("../assets/hero.png", import.meta.url).href;
@@ -8,6 +8,12 @@ const imgUrl = new URL("../assets/hero.png", import.meta.url).href;
 export default function Cart() {
   const [isDark] = useContext(ThemeContext);
   const [cartItem, setCartItem] = useContext(CartContext);
+
+  const deleteItem = (id)=>{
+    return setCartItem((prev)=>{
+      return prev.filter((item)=>item.id!==id)
+    })
+  }
 
   console.log(cartItem);
   return (
@@ -28,11 +34,11 @@ export default function Cart() {
         Back
       </button>
       <div className="mt-4 space-y-6">
-        {cartItem.map((item) => {
+        {cartItem.length===0? <h1 className="text-3xl font-bold text-center mt-50 flex items-center gap-2 justify-center">Your cart is empty <ShoppingCart /> </h1> :cartItem.map((item) => {
           return (
             <div
               key={item.id}
-              className="flex items-center justify-between rounded border px-4 py-2"
+              className="flex flex-col justify-center gap-4 rounded border px-4 py-2 sm:flex-row sm:justify-between"
             >
               <div className="flex items-center gap-4">
                 <img
@@ -45,11 +51,11 @@ export default function Cart() {
                   <span>{item.price} Rs</span>
                 </div>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="mt-3 flex items-center justify-end gap-2">
                 <div>
                   quantity <span>{item.quantity}</span>
                 </div>
-                <button className="cursor-pointer rounded bg-red-500 px-4 py-2 shadow-2xl">
+                <button onClick={()=>{deleteItem(item.id)}} className="cursor-pointer rounded bg-red-500 px-4 py-2 shadow-2xl">
                   Remove
                 </button>
               </div>

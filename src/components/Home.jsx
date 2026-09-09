@@ -3,11 +3,12 @@ import { getProducts } from "../api/products";
 import ProductsControl from "./ProductsControl";
 import ProductsContainer from "./ProductsContainer";
 import { ThemeContext } from "../contexts/ThemeContext";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 
 export default function ProductsPage() {
   const [data, setData] = useState([]);
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useLocalStorage('query',"");
   const [category, setCategory] = useState("All category");
 
  const[isDark] = useContext(ThemeContext)
