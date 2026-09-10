@@ -6,19 +6,19 @@ import { CartContext } from "../contexts/CartContext";
 
 export default function ProductsCard({ data, query, category }) {
   const [isDark] = useContext(ThemeContext);
-  const [cartItem, setCartItem] = useContext(CartContext);
+  const [cartItem, setCartItem,addToCart] = useContext(CartContext);
 
-  const addToCart = (product) => {
-    setCartItem((prev)=>{
-      const existing = prev.find((item)=>item.id===product.id)
-      if(existing){
-        return prev.map((item)=>{
-         return item.id===product.id?{...item,quantity:item.quantity+1}:item
-        })
-      }
-      return [...prev,{...product,quantity:1}]
-    })
-  };
+  // const addToCart = (product) => {
+  //   setCartItem((prev)=>{
+  //     const existing = prev.find((item)=>item.id===product.id)
+  //     if(existing){
+  //       return prev.map((item)=>{
+  //        return item.id===product.id?{...item,quantity:item.quantity+1}:item
+  //       })
+  //     }
+  //     return [...prev,{...product,quantity:1}]
+  //   })
+  // };
 
   return data.length === 0 ? (
     <CardShimmer />
@@ -58,7 +58,7 @@ export default function ProductsCard({ data, query, category }) {
                   e.stopPropagation();
                   addToCart(product);
                 }}
-                className={`cursor-pointer rounded bg-gray-300 px-2 py-1 ${
+                className={`translate-x-1 translate-y-1 cursor-pointer rounded bg-gray-300 px-2 py-1 transition-transform active:scale-95 ${
                   isDark
                     ? "bg-violet-500 text-white hover:bg-violet-600"
                     : "bg-gray-300 text-black hover:bg-gray-400"

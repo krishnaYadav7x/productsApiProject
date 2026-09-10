@@ -29,6 +29,7 @@ export default function ProductsPage() {
     >
       <ProductsControl
         data={data}
+        setData={setData}
         setQuery={setQuery}
         query={query}
         setCategory={setCategory}

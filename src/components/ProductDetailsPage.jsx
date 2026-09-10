@@ -5,10 +5,12 @@ import { useLocation, useParams } from "react-router";
 import { searchProducts } from "../api/products";
 import { ThemeContext } from "../contexts/ThemeContext";
 import ProductDetailsShimmer from "./ProductDetailsShimmer";
+import { CartContext } from "../contexts/CartContext";
 
 export default function ProductDetailsPage() {
   const [productsData, setProductsData] = useState([]);
   const [isDark] = useContext(ThemeContext);
+  const [cartItem,setCartItem,addToCart] = useContext(CartContext)
 
   const { title } = useParams();
   const { state } = useLocation();
@@ -33,7 +35,6 @@ export default function ProductDetailsPage() {
         isDark ? "bg-slate-950 text-slate-100" : "bg-white text-black"
       }`}
     >
-      
       <button
         className="flex cursor-pointer gap-1 rounded border px-2 py-2 shadow-2xl"
         onClick={() => history.back()}
@@ -42,7 +43,6 @@ export default function ProductDetailsPage() {
         Back
       </button>
 
-      
       <div className="flex justify-center">
         {!productsData.reviews ? (
           <ProductDetailsShimmer />
@@ -84,12 +84,22 @@ export default function ProductDetailsPage() {
               </p>
             </div>
 
-            
+            <div className="flex justify-end my-5">
+              <button onClick={() => addToCart(productsData)}
+                className={`cursor-pointer rounded-md px-5 py-2 text-sm font-semibold shadow-md transition-all duration-200 active:scale-95 ${
+                  isDark
+                    ? "bg-blue-600 text-white hover:bg-blue-500"
+                    : "bg-blue-700 text-white hover:bg-blue-800"
+                }`}
+              >
+                Add to cart
+              </button>
+            </div>
+
             <div className="mt-8 w-60 border-b-4 border-b-violet-500 text-2xl font-bold">
               Customers reviews
             </div>
 
-           
             <div className="ratings-reviews mt-6 space-y-8">
               {productsData.reviews.map((review, i) => (
                 <div
